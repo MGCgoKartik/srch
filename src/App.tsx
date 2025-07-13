@@ -118,14 +118,14 @@ function App() {
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-900 to-indigo-900 bg-clip-text text-transparent">
-                  AutoDealer Pro
+                  car details finder
                 </h1>
                 <p className="text-sm text-slate-500">Search & Manage</p>
               </div>
             </div>
             <div className="flex items-center space-x-2 text-sm text-slate-600">
               <Sparkles className="w-4 h-4 text-blue-500" />
-              <span>Employee Portal</span>
+              <span>made by kartik rana</span>
             </div>
           </div>
         </div>
