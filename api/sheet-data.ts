@@ -31,17 +31,9 @@ const getCredentials = () => {
     throw new Error('The GOOGLE_PRIVATE_KEY and GOOGLE_CLIENT_EMAIL environment variables must be set.');
   }
 
-  // Diagnostic logging to inspect the key
-  console.log('Received Private Key (first 50 chars):', privateKey.substring(0, 50));
-  console.log('Received Private Key (last 50 chars):', privateKey.substring(privateKey.length - 50));
-
-  // The private key from Vercel's environment variables might have escaped newlines (\\n).
-  // We need to replace them with actual newline characters (\n).
-  const formattedPrivateKey = privateKey.replace(/\\n/g, '\n');
-
   return {
     client_email: clientEmail,
-    private_key: formattedPrivateKey,
+    private_key: privateKey,
     project_id: 'vehicle-data-465808', // Add your project ID here
   };
 };
