@@ -24,17 +24,22 @@ export interface SheetRow {
 
 // Helper function to parse credentials from environment variable
 const getCredentials = () => {
-  const credentialsJson = process.env.GOOGLE_SHEETS_CREDENTIALS;
-  if (!credentialsJson) {
-    throw new Error('The GOOGLE_SHEETS_CREDENTIALS environment variable is not set.');
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+
+  if (!privateKey || !clientEmail) {
+    throw new Error('The GOOGLE_PRIVATE_KEY and GOOGLE_CLIENT_EMAIL environment variables must be set.');
   }
-  try {
-    // Vercel automatically escapes the string, so we need to parse it.
-    return JSON.parse(credentialsJson);
-  } catch (error) {
-    console.error('Failed to parse GOOGLE_SHEETS_CREDENTIALS:', error);
-    throw new Error('The GOOGLE_SHEETS_CREDENTIALS environment variable is not valid JSON.');
-  }
+
+  // The private key from Vercel's environment variables might have escaped newlines (\\n).
+  // We need to replace them with actual newline characters (\n).
+  const formattedPrivateKey = privateKey.replace(/\\n/g, '\n');
+
+  return {
+    client_email: clientEmail,
+    private_key: formattedPrivateKey,
+    project_id: 'vehicle-data-465808', // Add your project ID here
+  };
 };
 
 const SPREADSHEET_ID = '1mfi0JtuIT032ss2I9XdQKFdlGnxrhkyMZJR6iWUIAOE';
