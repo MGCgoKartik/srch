@@ -31,9 +31,13 @@ const getCredentials = () => {
     throw new Error('The GOOGLE_PRIVATE_KEY and GOOGLE_CLIENT_EMAIL environment variables must be set.');
   }
 
+  // The private key from Vercel's environment variables has escaped newlines (\\n).
+  // We need to replace them with actual newline characters (\n) for the crypto library to work.
+  const formattedPrivateKey = privateKey.replace(/\\n/g, '\n');
+
   return {
     client_email: clientEmail,
-    private_key: privateKey,
+    private_key: formattedPrivateKey,
     project_id: 'vehicle-data-465808', // Add your project ID here
   };
 };
